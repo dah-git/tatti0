@@ -1,0 +1,7 @@
+wget -O /app/main/tatti0-master/tobrot/aria2/dht.dat https://github.com/P3TERX/aria2.conf/raw/master/dht.dat
+wget -O /app/main/tatti0-master/tobrot/aria2/dht6.dat https://github.com/P3TERX/aria2.conf/raw/master/dht6.dat
+sed -n -i '/max-concurrent-downloads/q;p' /app/main/tatti0-master/tobrot/aria2/aria2.conf
+tracker_list=`curl -Ns https://raw.githubusercontent.com/XIU2/TrackersListCollection/master/all.txt -: https://ngosang.github.io/trackerslist/trackers_all_http.txt -: https://newtrackon.com/api/all -: https://raw.githubusercontent.com/DeSireFire/animeTrackerList/master/AT_all.txt -: https://torrends.to/torrent-tracker-list/?download=latest | awk '$1' | tr '\n' ',' | cat`
+echo -e "\nmax-concurrent-downloads=8\nbt-tracker=$tracker_list" >> /app/main/tatti0-master/tobrot/aria2/aria2.conf
+aria2c --conf-path=/app/main/tatti0-master/tobrot/aria2/aria2.conf
+python3 -m tobrot
